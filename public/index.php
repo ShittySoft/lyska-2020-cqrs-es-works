@@ -10,6 +10,7 @@ use Prooph\ServiceBus\CommandBus;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Rhumsaa\Uuid\Uuid;
+use Webmozart\Assert\Assert;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 use Zend\Expressive\Application;
@@ -39,6 +40,21 @@ call_user_func(function () {
 
     $app->pipeRoutingMiddleware();
 
+    $getBodyParameter = static function (Request $request, string $parameter) : string
+    {
+        $body = $request->getParsedBody();
+
+        Assert::isArray($body);
+        Assert::isMap($body);
+        Assert::keyExists($body, $parameter);
+
+        $value = $body[$parameter];
+
+        Assert::string($value);
+
+        return $value;
+    };
+
     $app->get('/', function (Request $request, Response $response) : Response {
         ob_start();
         require __DIR__ . '/../template/index.php';
@@ -49,9 +65,9 @@ call_user_func(function () {
         return $response;
     });
 
-    $app->post('/register-new-building', function (Request $request, Response $response) use ($sm) : Response {
+    $app->post('/register-new-building', function (Request $request, Response $response) use ($sm, $getBodyParameter) : Response {
         $commandBus = $sm->get(CommandBus::class);
-        $commandBus->dispatch(Command\RegisterNewBuilding::fromName($request->getParsedBody()['name']));
+        $commandBus->dispatch(Command\RegisterNewBuilding::fromName($getBodyParameter($request, 'name')));
 
         return $response->withAddedHeader('Location', '/');
     });
