@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace Building\App;
 
-use Bernard\Driver\FlatFileDriver;
-use Bernard\Producer;
-use Bernard\Queue;
-use Bernard\QueueFactory;
-use Bernard\QueueFactory\PersistentFactory;
 use Building\Domain\Aggregate\Building;
 use Building\Domain\Command;
 use Building\Domain\Repository\BuildingRepositoryInterface;
@@ -33,14 +28,10 @@ use Prooph\EventStore\Aggregate\AggregateType;
 use Prooph\EventStore\EventStore;
 use Prooph\EventStoreBusBridge\EventPublisher;
 use Prooph\EventStoreBusBridge\TransactionManager;
-use Prooph\ServiceBus\Async\MessageProducer;
 use Prooph\ServiceBus\CommandBus;
 use Prooph\ServiceBus\EventBus;
-use Prooph\ServiceBus\Message\Bernard\BernardMessageProducer;
-use Prooph\ServiceBus\Message\Bernard\BernardSerializer;
 use Prooph\ServiceBus\MessageBus;
 use Prooph\ServiceBus\Plugin\ServiceLocatorPlugin;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Zend\ServiceManager\ServiceManager;
 
 require_once __DIR__ . '/vendor/autoload.php';
