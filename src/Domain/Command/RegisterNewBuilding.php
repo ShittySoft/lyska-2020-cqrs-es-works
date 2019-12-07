@@ -8,9 +8,7 @@ use Prooph\Common\Messaging\Command;
 
 final class RegisterNewBuilding extends Command
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $name;
 
     private function __construct(string $name)
@@ -30,9 +28,7 @@ final class RegisterNewBuilding extends Command
         return $this->name;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public function payload() : array
     {
         return [
@@ -40,9 +36,7 @@ final class RegisterNewBuilding extends Command
         ];
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     protected function setPayload(array $payload)
     {
         $this->name = $payload['name'];
