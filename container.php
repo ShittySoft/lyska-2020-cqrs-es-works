@@ -169,27 +169,6 @@ return new ServiceManager([
             return $commandBus;
         },
 
-        // ignore this - this is async stuff
-        // we'll get to it later
-
-        QueueFactory::class => function () : QueueFactory {
-            return new PersistentFactory(
-                new FlatFileDriver(__DIR__ . '/data/bernard'),
-                new BernardSerializer(new FQCNMessageFactory(), new NoOpMessageConverter())
-            );
-        },
-
-        Queue::class => function (ContainerInterface $container) : Queue {
-            return $container->get(QueueFactory::class)->create('commands');
-        },
-
-        MessageProducer::class => function (ContainerInterface $container) : MessageProducer {
-            return new BernardMessageProducer(
-                new Producer($container->get(QueueFactory::class),new EventDispatcher()),
-                'commands'
-            );
-        },
-
         // Command -> CommandHandlerFactory
         // this is where most of the work will be done (by you!)
         Command\RegisterNewBuilding::class => function (ContainerInterface $container) : callable {
