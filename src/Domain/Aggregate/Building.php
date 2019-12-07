@@ -25,12 +25,12 @@ final class Building extends AggregateRoot
         return $self;
     }
 
-    public function checkInUser(string $username)
+    public function checkInUser(string $username) : void
     {
         throw new \BadFunctionCallException('To be implemented: I should record a new event on the building');
     }
 
-    public function checkOutUser(string $username)
+    public function checkOutUser(string $username) : void
     {
         throw new \BadFunctionCallException('To be implemented: I should record a new event on the building');
     }
