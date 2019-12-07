@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Building\App;
 
 use Building\Domain\Command;
+use Interop\Container\ContainerInterface;
 use Prooph\ServiceBus\CommandBus;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -19,6 +20,7 @@ call_user_func(function () {
     error_reporting(E_ALL);
     ini_set('display_errors', '1');
 
+    /** @var ContainerInterface $sm */
     $sm = require __DIR__ . '/../container.php';
 
     //////////////////////////
