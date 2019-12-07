@@ -69,11 +69,11 @@ call_user_func(function () {
     });
 
     $app->post('/checkin/{buildingId}', function (Request $request, Response $response) use ($sm) : Response {
-
+        throw new \BadFunctionCallException('To be implemented: I should dispatch a command and redirect back to the previous page');
     });
 
     $app->post('/checkout/{buildingId}', function (Request $request, Response $response) use ($sm) : Response {
-
+        throw new \BadFunctionCallException('To be implemented: I should dispatch a command and redirect back to the previous page');
     });
 
     $app->pipeDispatchMiddleware();

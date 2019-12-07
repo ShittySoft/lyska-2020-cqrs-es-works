@@ -36,12 +36,12 @@ final class Building extends AggregateRoot
 
     public function checkInUser(string $username)
     {
-        // @TODO to be implemented
+        throw new \BadFunctionCallException('To be implemented: I should record a new event on the building');
     }
 
     public function checkOutUser(string $username)
     {
-        // @TODO to be implemented
+        throw new \BadFunctionCallException('To be implemented: I should record a new event on the building');
     }
 
     protected function whenNewBuildingWasRegistered(NewBuildingWasRegistered $event)
